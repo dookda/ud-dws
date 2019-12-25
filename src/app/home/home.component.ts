@@ -12,6 +12,7 @@ import { MarkerService } from '../marker.service';
 export class HomeComponent implements OnInit {
 
   public map: any;
+  public layerControl: any;
   public streamShow = false;
   public rainShow = false;
   public stName: any;
@@ -24,9 +25,31 @@ export class HomeComponent implements OnInit {
   public rh: any;
   public slp: any;
 
+  public station01Rain: any;
+  public station01Runoff: any;
+  public station02Rain: any;
+  public station02Runoff: any;
+  public station03Rain: any;
+  public station03Runoff: any;
+  public station04Rain: any;
+  public station04Runoff: any;
+  public station05Rain: any;
+  public station05Runoff: any;
+
   public rhLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
   public rhData = [120, 150, 180, 90];
   public rhType = 'doughnut';
+
+  public iconGreen = "./assets/images/green.svg";
+  public iconRed = "./assets/images/red.svg";
+  public iconOrange = "./assets/images/orange.svg";
+  public info = "./assets/images/info.svg";
+
+  public badge01: any;
+  public badge02: any;
+  public badge03: any;
+  public badge04: any;
+  public badge05: any;
 
   constructor(
     public service: ServiceService,
@@ -37,14 +60,13 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.loadMap();
     // this.showWeather();
+    this.map = new L.Map('map', {
+      center: [17.707829, 100.002905],
+      zoom: 12
+    });
   }
 
   async loadMap() {
-    this.map = new L.Map('map', {
-      center: [17.707829, 100.002905],
-      zoom: 13
-    });
-
     const mbox = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy;',
       maxZoom: 18,
@@ -95,12 +117,27 @@ export class HomeComponent implements OnInit {
       CQL_FILTER: 'pro_code=53 OR pro_code=54 OR pro_code=65 OR pro_code=64'
     });
 
+    const basin = L.tileLayer.wms(cgiUrl, {
+      layers: 'ud:maeprong_basin_4326',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5
+    });
+
     const stream = L.tileLayer.wms(cgiUrl, {
       layers: 'upn:ll_stream',
       format: 'image/png',
       transparent: true,
       zIndex: 5
     });
+
+    const village = L.tileLayer.wms(cgiUrl, {
+      layers: 'upn:ll_village',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5
+    });
+
 
     const rainInterp = L.tileLayer.wms(w3Url, {
       layers: 'gistdata:geotiff_coverage',
@@ -118,16 +155,27 @@ export class HomeComponent implements OnInit {
       แผนที่ผสม: ghyb
     };
 
-    const overLay = {
-      ขอบเขตจังหวัด: pro.addTo(this.map),
-      ขอบเขตอำเภอ: amp.addTo(this.map),
-      ขอบเขตตำบล: tam.addTo(this.map),
-      เส้นลำน้ำ: stream.addTo(this.map),
-      สถานีตรวจวัดปริมาณน้ำฝน: rainSta.addTo(this.map),
-      ตำแหน่งวัดปริมาณน้ำท่า: strmSta.addTo(this.map)
-    };
+    // const overLay = {
+    //   // : ,
+    //   ขอบเขตอำเภอ: amp.addTo(this.map),
+    //   ขอบเขตตำบล: tam.addTo(this.map),
+    //   ขอบเขตลุ่มน้ำ: basin.addTo(this.map),
+    //   เส้นลำน้ำ: stream.addTo(this.map),
+    //   หมู่บ้าน: village.addTo(this.map),
+    //   สถานีตรวจวัดปริมาณน้ำฝน: rainSta.addTo(this.map),
+    //   ตำแหน่งวัดปริมาณน้ำท่า: strmSta.addTo(this.map),
 
-    L.control.layers(baseMap, overLay).addTo(this.map);
+    // };
+
+    this.layerControl = L.control.layers(baseMap).addTo(this.map);
+    this.layerControl.addOverlay(pro.addTo(this.map), 'ขอบเขตจังหวัด');
+    this.layerControl.addOverlay(amp.addTo(this.map), 'ขอบเขตอำเภอ');
+    this.layerControl.addOverlay(tam.addTo(this.map), 'ขอบเขตตำบล');
+    this.layerControl.addOverlay(basin.addTo(this.map), 'ขอบเขตลุ่มน้ำ');
+    this.layerControl.addOverlay(stream.addTo(this.map), 'เส้นลำน้ำ');
+    this.layerControl.addOverlay(village.addTo(this.map), 'หมู่บ้าน');
+    this.layerControl.addOverlay(rainSta.addTo(this.map), 'ตำแหน่งวัดปริมาณน้ำฝนเพื่อนพึ่งภาฯ');
+    this.layerControl.addOverlay(strmSta.addTo(this.map), 'ตำแหน่งเครื่องติดตามข้อมูลน้ำ');
 
     // const blueIcon = await this.service.blueIcon;
     const blueIcon = L.icon({
@@ -181,7 +229,7 @@ export class HomeComponent implements OnInit {
           // console.log(feature);
           if (feature.properties) {
             layer.bindPopup(
-              `${feature.properties.sta_addres}`, {
+              `สถานี:${feature.properties.stacode} ${feature.properties.place}`, {
               maxWidth: '300'
             }
             );
@@ -219,13 +267,104 @@ export class HomeComponent implements OnInit {
     // marker.addTo(rainSta);
     //   });
     // });
+
+    // get runoff
+    this.service.getRunoff(530001).then((res: any) => {
+      if (res.data[0] != null) {
+        this.station01Runoff = res.data[0].flow_level;
+      } else {
+        this.station01Runoff = 0;
+      }
+    })
+
+    this.service.getRunoff(530002).then((res: any) => {
+      if (res.data[0] != null) {
+        this.station02Runoff = res.data[0].flow_level;
+      } else {
+        this.station02Runoff = 0;
+      }
+
+    })
+
+    this.service.getRunoff(530003).then((res: any) => {
+      if (res.data[0] != 0) {
+        this.station03Runoff = res.data[0].flow_level;
+      } else {
+        this.station03Runoff = 0;
+      }
+    })
+
+    this.service.getRunoff(530004).then((res: any) => {
+      if (res.data[0] != 0) {
+        this.station04Runoff = res.data[0].flow_level;
+      } else {
+        this.station04Runoff = 0;
+      }
+    })
+
+    this.service.getRunoff(530005).then((res: any) => {
+      if (res.data[0] != 0) {
+        this.station05Runoff = res.data[0].flow_level;
+      } else {
+        this.station05Runoff = 0;
+      }
+    })
+
+
+    // get rain
+    this.service.getRain(530001).then((res: any) => {
+      if (res.weather[0] != null) {
+        this.station01Rain = res.weather[0].microclimate[0].data.rain;
+        this.floodSim01()
+      } else {
+        this.station01Rain = 0;
+      }
+    })
+
+    this.service.getRain(530002).then((res: any) => {
+      // console.log(res)
+      if (res.weather[0] != null) {
+        this.station02Rain = res.weather[0].microclimate[0].data.rain;
+        this.floodSim02()
+      } else {
+        this.station02Rain = 0;
+      }
+
+    })
+
+    this.service.getRain(530003).then((res: any) => {
+      if (res.weather[0] != 0) {
+        this.station03Rain = res.weather[0].microclimate[0].data.rain;
+        this.floodSim03()
+      } else {
+        this.station03Rain = 0;
+      }
+    })
+
+    this.service.getRain(530004).then((res: any) => {
+      if (res.weather[0] != 0) {
+        this.station04Rain = res.weather[0].microclimate[0].data.rain;
+        this.floodSim04()
+      } else {
+        this.station04Rain = 0;
+      }
+    })
+
+    this.service.getRain(530005).then((res: any) => {
+      if (res.weather[0] != 0) {
+        this.station05Rain = res.weather[0].microclimate[0].data.rain;
+        this.floodSim05()
+      } else {
+        this.station05Rain = 0;
+      }
+    })
+
   }
 
   showWeather(e: any) {
     const id = e.sourceTarget.feature.properties.id;
     this.service.getWeather(id).then((res: any) => {
-      console.log(res);
-
+      // console.log(res);
       this.rhLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
       this.rhData = [120, 150, 180, 90];
       this.rhType = 'doughnut';
@@ -253,4 +392,218 @@ export class HomeComponent implements OnInit {
     this.map.panTo(e.latlng);
   }
 
+  floodSim01() {
+    this.map.eachLayer((lyr: any) => {
+      if (lyr.name === "lyr_orange01" || lyr.name === "lyr_red01") {
+        console.log(lyr);
+        this.map.removeLayer(lyr);
+        this.layerControl.removeLayer(lyr);
+      }
+    });
+    const rain = Number(this.station01Rain);
+    const runoff = Number(this.station01Runoff);
+    const lyr_orange = L.tileLayer.wms("http://www.cgi.uru.ac.th/geoserver/ows?", {
+      layers: 'ud:ll_floodarea_sta01_4326',
+      format: 'image/png',
+      transparent: true,
+      styles: 'flood_orange '
+    });
+    const lyr_red = L.tileLayer.wms("http://www.cgi.uru.ac.th/geoserver/ows?", {
+      layers: 'ud:ll_floodarea_sta01_4326',
+      format: 'image/png',
+      transparent: true,
+      styles: 'flood_red'
+    });
+
+    if (rain > 90 && runoff > 350) {
+      this.badge01 = this.iconRed;
+      lyr_red.name = 'lyr_red01';
+      this.layerControl.addOverlay(lyr_red.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530001');
+      this.sendNotify();
+    } else if (rain > 90 || runoff > 350) {
+      this.badge01 = this.iconOrange;
+      lyr_orange.name = 'lyr_orange01';
+      this.layerControl.addOverlay(lyr_orange.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530001');
+      this.sendNotify();
+    } else {
+      console.log('green');
+      this.badge01 = this.iconGreen;
+    }
+
+  }
+
+  floodSim02() {
+    this.map.eachLayer((lyr: any) => {
+      if (lyr.name === "lyr_orange02" || lyr.name === "lyr_red02") {
+        console.log(lyr);
+        this.map.removeLayer(lyr);
+        this.layerControl.removeLayer(lyr);
+      }
+    });
+    const rain = Number(this.station02Rain);
+    const runoff = Number(this.station02Runoff);
+    const lyr_orange = L.tileLayer.wms("http://www.cgi.uru.ac.th/geoserver/ows?", {
+      layers: 'ud:ll_floodarea_sta02_4326',
+      format: 'image/png',
+      transparent: true,
+      styles: 'flood_orange'
+    });
+    const lyr_red = L.tileLayer.wms("http://www.cgi.uru.ac.th/geoserver/ows?", {
+      layers: 'ud:ll_floodarea_sta02_4326',
+      format: 'image/png',
+      transparent: true,
+      styles: 'flood_red'
+    });
+
+    if (rain > 90 && runoff > 420) {
+      this.badge02 = this.iconRed;
+      lyr_red.name = 'lyr_red02';
+      this.layerControl.addOverlay(lyr_red.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530002');
+      this.sendNotify();
+    } else if (rain > 90 || runoff > 420) {
+      this.badge02 = this.iconOrange;
+      lyr_orange.name = 'lyr_orange02';
+      this.layerControl.addOverlay(lyr_orange.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530002');
+      this.sendNotify();
+    } else {
+      this.badge02 = this.iconGreen;
+      console.log('green');
+    }
+
+  }
+
+  floodSim03() {
+    this.map.eachLayer((lyr: any) => {
+      if (lyr.name === "lyr_orange03" || lyr.name === "lyr_red03") {
+        console.log(lyr);
+        this.map.removeLayer(lyr);
+        this.layerControl.removeLayer(lyr);
+      }
+    });
+    const rain = Number(this.station03Rain);
+    const runoff = Number(this.station03Runoff);
+    const lyr_orange = L.tileLayer.wms("http://www.cgi.uru.ac.th/geoserver/ows?", {
+      layers: 'ud:ll_floodarea_sta03_4326',
+      format: 'image/png',
+      transparent: true,
+      styles: 'flood_orange '
+    });
+    const lyr_red = L.tileLayer.wms("http://www.cgi.uru.ac.th/geoserver/ows?", {
+      layers: 'ud:ll_floodarea_sta03_4326',
+      format: 'image/png',
+      transparent: true,
+      styles: 'flood_red'
+    });
+
+    if (rain > 90 && runoff > 150) {
+      this.badge03 = this.iconRed;
+      lyr_red.name = 'lyr_red03';
+      this.layerControl.addOverlay(lyr_red.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530003');
+      this.sendNotify();
+    } else if (rain > 90 || runoff > 150) {
+      this.badge03 = this.iconOrange;
+      lyr_orange.name = 'lyr_orange03';
+      this.layerControl.addOverlay(lyr_orange.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530003');
+      this.sendNotify();
+    } else {
+      this.badge03 = this.iconGreen;
+      console.log('green')
+    }
+
+  }
+
+  floodSim04() {
+    this.map.eachLayer((lyr: any) => {
+      if (lyr.name === "lyr_orange04" || lyr.name === "lyr_red04") {
+        console.log(lyr);
+        this.map.removeLayer(lyr);
+        this.layerControl.removeLayer(lyr);
+      }
+    });
+    const rain = Number(this.station04Rain);
+    const runoff = Number(this.station04Runoff);
+
+    const lyr_orange = L.tileLayer.wms("http://www.cgi.uru.ac.th/geoserver/ows?", {
+      layers: 'ud:ll_floodarea_sta04_4326',
+      format: 'image/png',
+      transparent: true,
+      styles: 'flood_orange '
+    });
+    const lyr_red = L.tileLayer.wms("http://www.cgi.uru.ac.th/geoserver/ows?", {
+      layers: 'ud:ll_floodarea_sta04_4326',
+      format: 'image/png',
+      transparent: true,
+      styles: 'flood_red'
+    });
+
+    if (rain > 90 && runoff > 150) {
+      this.badge04 = this.iconRed;
+      lyr_red.name = 'lyr_red04';
+      this.layerControl.addOverlay(lyr_red.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530004');
+      this.sendNotify();
+    } else if (rain > 90 || runoff > 150) {
+      this.badge04 = this.iconOrange;
+      lyr_orange.name = 'lyr_orange04';
+      this.layerControl.addOverlay(lyr_orange.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530004');
+      this.sendNotify();
+    } else {
+      this.badge04 = this.iconGreen;
+      console.log('green')
+    }
+
+  }
+
+  floodSim05() {
+    this.map.eachLayer((lyr: any) => {
+      if (lyr.name === "lyr_orange05" || lyr.name === "lyr_red05") {
+        console.log(lyr);
+        this.map.removeLayer(lyr);
+        this.layerControl.removeLayer(lyr);
+      }
+    });
+    const rain = Number(this.station05Rain);
+    const runoff = Number(this.station05Runoff);
+
+    const lyr_orange = L.tileLayer.wms("http://www.cgi.uru.ac.th/geoserver/ows?", {
+      layers: 'ud:ll_floodarea_sta01_4326',
+      format: 'image/png',
+      transparent: true,
+      styles: 'flood_orange '
+    });
+    const lyr_red = L.tileLayer.wms("http://www.cgi.uru.ac.th/geoserver/ows?", {
+      layers: 'ud:ll_floodarea_sta05_4326',
+      format: 'image/png',
+      transparent: true,
+      styles: 'flood_red'
+    });
+
+    if (rain > 90 && runoff > 300) {
+      this.badge05 = this.iconRed;
+      lyr_red.name = 'lyr_red05';
+      this.layerControl.addOverlay(lyr_red.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530005');
+      this.sendNotify();
+    } else if (rain > 90 || runoff > 300) {
+      this.badge05 = this.iconOrange;
+      lyr_orange.name = 'lyr_orange05';
+      this.layerControl.addOverlay(lyr_orange.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530005');
+      this.sendNotify();
+    } else {
+      this.badge05 = this.iconGreen;
+      console.log('green')
+    }
+
+  }
+
+  sendNotify() {
+    this.service.sendNotify().then((res) => {
+      console.log(res)
+    })
+  }
+
+
+}
+
+export class Station {
+  rain: number;
+  runoff: number;
 }

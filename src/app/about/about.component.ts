@@ -77,13 +77,130 @@ export class AboutComponent implements OnInit {
       CQL_FILTER: 'pro_code=53 OR pro_code=54 OR pro_code=65 OR pro_code=64'
     });
 
-    const ortho = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+    const ud_ortho = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
       layers: 'utd:urban',
       format: 'image/png',
       transparent: true,
-      attribution: 'sakda'
     });
 
+    const ud_aquifer = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_aquifer',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_forest_c = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_forest_c',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_forest_c_gistda = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_forest_c_gistda',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_geo_stc = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_geo_stc',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_geology = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_geology',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_landuse2555_4326 = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_landuse2555_4326',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_municipal_4326 = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_municipal_4326',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_pb_soil = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_pb_soil',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_pump = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_pump',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_pwa_vill = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_pwa_vill',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_soil_suit = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_soil_suit',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_stream = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_stream',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_trans = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_trans',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_village = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_village',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_well = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_well',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_wshd_cl = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_wshd_cl',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
+
+    const ud_wtr_body = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
+      layers: 'ud:ud_wtr_body',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+    });
 
     // const rainInterp = L.tileLayer.wms(w3Url, {
     //   layers: 'gistdata:geotiff_coverage',
@@ -99,11 +216,28 @@ export class AboutComponent implements OnInit {
     };
 
 
+
     const overLay = {
-      ขอบเขตจังหวัด: pro.addTo(this.map),
-      ขอบเขตอำเภอ: amp.addTo(this.map),
-      ขอบเขตตำบล: tam.addTo(this.map),
-      ภาพถ่ายทางอากาศ: ortho.addTo(this.map)
+      'ขอบเขตจังหวัด': pro.addTo(this.map),
+      'ขอบเขตอำเภอ': amp.addTo(this.map),
+      'ขอบเขตตำบล': tam.addTo(this.map),
+      'ภาพถ่ายทางอากาศ': ud_ortho,
+      'ชั้นหินให้น้ำ': ud_aquifer,
+      'ขอบเขตป่าไม้': ud_forest_c_gistda,
+      'รอยเลื่อน': ud_geo_stc,
+      'ลักษณะทางธรณีวิทยา': ud_geology,
+      'การใช้ประโยชน์ที่ดินปี 2555': ud_landuse2555_4326,
+      'ขอบเขตเทศบาล': ud_municipal_4326,
+      'ลักษณะของดิน': ud_pb_soil,
+      'ตำแหน่งสูบน้ำด้วยไฟฟ้า': ud_pump,
+      'ประปาหมู่บ้าน': ud_pwa_vill,
+      // 'ความเหมาะสมเพาะปลูกพืช': ud_soil_suit,
+      'ชั้นคุณภาพลุ่มน้ำ': ud_wshd_cl,
+      'แหล่งน้ำผิวดิน': ud_wtr_body,
+      'เส้นลำน้ำ': ud_stream,
+      'เส้นทางคมนาคม': ud_trans,
+      'ตำแหน่งหมู่บ้าน': ud_village,
+      'ตำแหน่งบ่อบาดาล': ud_well,
     };
 
     L.control.layers(baseMap, overLay).addTo(this.map)

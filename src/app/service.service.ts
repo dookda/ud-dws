@@ -65,7 +65,7 @@ export class ServiceService {
   }
 
   getCheckpoint() {
-    const url = `http://cgi.uru.ac.th:3000/udsafe/checkpoint`;
+    const url = `http://cgi.uru.ac.th/geoserver/ud/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ud%3All_station_4326&outputFormat=application%2Fjson`;
     return new Promise((resolve: any, reject: any) => {
       this.http.get(url).subscribe((res: any) => {
         resolve(res);
@@ -77,6 +77,38 @@ export class ServiceService {
 
   getMeteoService(staId: any) {
     const url = `http://cgi.uru.ac.th:3000/weather/weather2/${staId}`;
+    return new Promise((resolve: any, reject: any) => {
+      this.http.get(url).subscribe((res: any) => {
+        resolve(res);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  getRunoff(staId: any) {
+    const url = `http://cgi.uru.ac.th:3000/dws/waterlev/${staId}`;
+    return new Promise((resolve: any, reject: any) => {
+      this.http.get(url).subscribe((res: any) => {
+        resolve(res);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+  getRain(staId: any) {
+    const url = `http://54.148.113.189/linephp/weather-intent/tmdweather.php?station=${staId}`;
+    return new Promise((resolve: any, reject: any) => {
+      this.http.get(url).subscribe((res: any) => {
+        resolve(res);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  sendNotify() {
+    const url = `http://cgi.uru.ac.th:3000/aqi/sendnotify`;
     return new Promise((resolve: any, reject: any) => {
       this.http.get(url).subscribe((res: any) => {
         resolve(res);
