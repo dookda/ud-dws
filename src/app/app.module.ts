@@ -14,6 +14,7 @@ import { RainComponent } from './rain/rain.component';
 import { SatmeteoComponent } from './satmeteo/satmeteo.component';
 import { ServiceService } from './service.service';
 import { LandsliceComponent } from './landslice/landslice.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { LandsliceComponent } from './landslice/landslice.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [ServiceService],
+  providers: [ServiceService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

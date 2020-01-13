@@ -93,6 +93,14 @@ export class HomeComponent implements OnInit {
     const w3Url = 'http://www3.cgistln.nu.ac.th/geoserver/gistdata/ows?';
     const firms = 'https://firms.modaps.eosdis.nasa.gov/wms?';
 
+    const topo = L.tileLayer.wms('http://202.29.52.232/geoserver/gwc/service/wms', {
+      layers: 'ud:ud_topo',
+      format: 'image/png',
+      transparent: true,
+      zIndex: 5,
+      opacity: 0.8
+    });
+
     const pro = L.tileLayer.wms(cgiUrl, {
       layers: 'th:province_4326',
       format: 'image/png',
@@ -168,6 +176,7 @@ export class HomeComponent implements OnInit {
     // };
 
     this.layerControl = L.control.layers(baseMap).addTo(this.map);
+    this.layerControl.addOverlay(topo.addTo(this.map), 'แผนที่1:50000');
     this.layerControl.addOverlay(pro.addTo(this.map), 'ขอบเขตจังหวัด');
     this.layerControl.addOverlay(amp.addTo(this.map), 'ขอบเขตอำเภอ');
     this.layerControl.addOverlay(tam.addTo(this.map), 'ขอบเขตตำบล');
