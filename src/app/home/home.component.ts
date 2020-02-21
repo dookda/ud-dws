@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
+import * as esri from 'esri-leaflet';
 import { ServiceService } from '../service.service';
 // import { AngularFirestore } from '@angular/fire/firestore';
 import { MarkerService } from '../marker.service';
@@ -93,13 +94,18 @@ export class HomeComponent implements OnInit {
     const w3Url = 'http://www3.cgistln.nu.ac.th/geoserver/gistdata/ows?';
     const firms = 'https://firms.modaps.eosdis.nasa.gov/wms?';
 
-    const topo = L.tileLayer.wms('http://202.29.52.232/geoserver/gwc/service/wms', {
-      layers: 'ud:ud_topo',
-      format: 'image/png',
-      transparent: true,
-      zIndex: 5,
-      opacity: 0.8
-    });
+    // const topo = L.tileLayer.wms('http://202.29.52.232/geoserver/gwc/service/wms', {
+    //   layers: 'ud:ud_topo',
+    //   format: 'image/png',
+    //   transparent: true,
+    //   zIndex: 5,
+    //   opacity: 0.8
+    // });
+
+    const topo = esri.tiledMapLayer({
+      url: 'https://gistdaportal.gistda.or.th/data/rest/services/L11_TopographicMap/L11_topographicmap/ImageServer',
+      opacity: 0.6
+    })
 
     const pro = L.tileLayer.wms(cgiUrl, {
       layers: 'th:province_4326',

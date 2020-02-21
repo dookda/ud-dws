@@ -6,6 +6,7 @@ import { HotspotComponent } from './hotspot/hotspot.component';
 import { AboutComponent } from './about/about.component';
 import { SatmeteoComponent } from './satmeteo/satmeteo.component';
 import { LandsliceComponent } from './landslice/landslice.component';
+import { DroughtComponent } from './drought/drought.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'rain', component: RainComponent },
   { path: 'satmeteo', component: SatmeteoComponent },
   { path: 'hotspot', component: HotspotComponent },
+  { path: 'drought', component: DroughtComponent },
   { path: 'about', component: AboutComponent },
   { path: '**', component: HomeComponent }
 ];
