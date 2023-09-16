@@ -1,0 +1,61 @@
+
+@import url("https://fonts.googleapis.com/css?family=Kanit");
+@import url("https://unpkg.com/leaflet@1.5.1/dist/leaflet.css");
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: Kanit !important;
+}
+
+body {
+    font-family: "Tahoma",Helvetica,Arial,sans-serif;
+    font-size: 14px !important;
+    line-height: 1.72222;
+}
+
+.bg-light {
+    background-color: #e9ecef!important;
+}
+
+.navbar-collapse {
+    padding-right: 21px !important;
+    padding-bottom: 9px !important;
+    padding-top: 9px;
+}
+
+.navbar-nav {
+    font-family: Kanit !important;
+    /* font-weight: 800; */
+    font-size: 16px !important;
+}
+
+.navbar-brand {
+    font-family: Kanit !important;
+}
+
+// .navbar-expand-lg {
+//     border-radius: 0.8rem !important;
+// }
+
+.container-fluid {
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+.tile{    
+    padding: .75rem 1rem;
+    // margin-bottom: 1rem;
+    // margin-top: 1rem;
+    background-color: #e9ecef;
+    // border-radius: 0.8rem;
+}
+
+.dtile {
+    padding: 0.75rem 1rem;
+    // margin-bottom: 1rem;
+    // margin-top: 1rem;
+    background-color: #e9ecef;
+}

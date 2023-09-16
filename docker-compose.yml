@@ -1,0 +1,14 @@
+version: '3'
+services:
+  nodejs:
+    image: node:14.21
+    container_name: dws_ng
+    working_dir: /app/dws
+    restart: always
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./dws:/app/dws
+    ports:
+      - 4200:4200
+    command: bash -c "npm i && ng serve"
