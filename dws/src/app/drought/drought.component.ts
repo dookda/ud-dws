@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 import * as L from 'leaflet';
-import * as esri from 'esri-leaflet';
+// import * as esri from 'esri-leaflet';
 import { ServiceService } from '../service.service';
 import { MarkerService } from '../marker.service';
+
+interface ExtendedMarkerOptions extends L.MarkerOptions {
+  iconName: string;
+}
 
 @Component({
   selector: 'app-drought',
@@ -50,15 +54,15 @@ export class DroughtComponent implements OnInit {
       subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
     });
 
-    const topo = esri.tiledMapLayer({
-      url: 'https://gistdaportal.gistda.or.th/data/rest/services/L11_TopographicMap/L11_topographicmap/ImageServer',
-      opacity: 0.6
-    })
+    // const topo = esri.tiledMapLayer({
+    //   url: 'https://gistdaportal.gistda.or.th/data/rest/services/L11_TopographicMap/L11_topographicmap/ImageServer',
+    //   opacity: 0.6
+    // })
 
-    const ortho = esri.tiledMapLayer({
-      url: 'http://eis.ldd.go.th/ArcGIS/rest/services/LDD_RASTER_WM_CACHE/MapServer',
-      opacity: 0.8
-    })
+    // const ortho = esri.tiledMapLayer({
+    //   url: 'http://eis.ldd.go.th/ArcGIS/rest/services/LDD_RASTER_WM_CACHE/MapServer',
+    //   opacity: 0.8
+    // })
 
     // const esri = L.esri.basemapLayer('Topographic');
 
@@ -237,112 +241,112 @@ export class DroughtComponent implements OnInit {
     L.marker([17.764226470530343, 100.30699056090818], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('ห้วยชมพู หมู่ 3').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('ห้วยชมพู หมู่ 3').addTo(markers);
 
     L.marker([17.827797457778072, 100.28712071501512], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('อ่างครกสิ่ว หมู่ 11').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('อ่างครกสิ่ว หมู่ 11').addTo(markers);
 
     L.marker([17.754964060160084, 100.30692328923081], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('สระหลวง หมู่ 5').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('สระหลวง หมู่ 5').addTo(markers);
 
     L.marker([17.839825492816185, 100.2994170005235], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('สระสาธารณะ หมู่ 7 บ้านผาลาด').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('สระสาธารณะ หมู่ 7 บ้านผาลาด').addTo(markers);
 
     L.marker([17.76129841970965, 100.28926615823673], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 5 ซอยม่อนป่าสัก').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 5 ซอยม่อนป่าสัก').addTo(markers);
 
     L.marker([17.760109234863673, 100.3050932112502], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 5 ประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 5 ประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.76386825842492, 100.30785567641128], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 3 ประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 3 ประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.766691802084793, 100.30046275130273], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 9 ซอยบ้านหล่าย').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 9 ซอยบ้านหล่าย').addTo(markers);
 
     L.marker([17.782457202536424, 100.29425686745113], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 2 ประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 2 ประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.78915759616436, 100.28954142402674], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 2 ประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 2 ประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.794863847749287, 100.29305388457895], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 12 ระบบประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 12 ระบบประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.799905536119915, 100.2931939651046], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 12 ระบบประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 12 ระบบประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.817821566204543, 100.29109653897663], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 1 ระบบประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 1 ระบบประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.818508397751664, 100.2924600717766], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 1 ระบบประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 1 ระบบประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.847478074608226, 100.26109552436112], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 8 ระบบประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 8 ระบบประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.837119438297222, 100.28637622115933], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 11 ระบบประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 11 ระบบประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.85317671940711, 100.2700249017504], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 8 ระบบประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 8 ระบบประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.852203351744926, 100.2696216615794], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 8 ระบบประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 8 ระบบประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.85841430793434, 100.27477104339503], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 8 ระบบประปาหมู่บ้าน').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 8 ระบบประปาหมู่บ้าน').addTo(markers);
 
     L.marker([17.869057047562965, 100.26965636224581], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมุ่ 8 ระบบประปาหมู่บ้าน (บ้าน ผญ.เนียม ปานานนท์)').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมุ่ 8 ระบบประปาหมู่บ้าน (บ้าน ผญ.เนียม ปานานนท์)').addTo(markers);
 
     L.marker([17.864110806944336, 100.29893275925714], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 10 ระบบประปาหมู่บ้าน(สำนักสงฆ์ทรายงาม)').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 10 ระบบประปาหมู่บ้าน(สำนักสงฆ์ทรายงาม)').addTo(markers);
 
     L.marker([17.86137609823194, 100.29841274260883], {
       icon: redIcon,
       iconName: 'strmSta'
-    }).bindPopup('หมู่ 10 ระบบประปาหมู่บ้าน(รร.ทรายงาม)').addTo(markers);
+    } as ExtendedMarkerOptions).bindPopup('หมู่ 10 ระบบประปาหมู่บ้าน(รร.ทรายงาม)').addTo(markers);
 
     const baseMap = {
       แผนที่ถนน: grod,
@@ -352,9 +356,9 @@ export class DroughtComponent implements OnInit {
     };
 
     const overLay = {
-      'ภาพถ่ายทางอากาศ': ortho,
+      // 'ภาพถ่ายทางอากาศ': ortho,
       // 'ภาพถ่ายทางอากาศ': ud_ortho,
-      'แผนที่1:50000': topo,
+      // 'แผนที่1:50000': topo,
       'ขอบเขตจังหวัด': pro,
       'ขอบเขตอำเภอ': amp.addTo(this.map),
       'ขอบเขตตำบล': tam.addTo(this.map),

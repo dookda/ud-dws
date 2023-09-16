@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import * as esri from 'esri-leaflet';
+// import * as esri from 'esri-leaflet';
 import { ServiceService } from '../service.service';
 // import { AngularFirestore } from '@angular/fire/firestore';
 import { MarkerService } from '../marker.service';
+
+interface ExtendedMarkerOptions extends L.MarkerOptions {
+  iconName: string;
+}
 
 @Component({
   selector: 'app-home',
@@ -102,10 +106,10 @@ export class HomeComponent implements OnInit {
     //   opacity: 0.8
     // });
 
-    const topo = esri.tiledMapLayer({
-      url: 'https://gistdaportal.gistda.or.th/data/rest/services/L11_TopographicMap/L11_topographicmap/ImageServer',
-      opacity: 0.6
-    })
+    // const topo = esri.tiledMapLayer({
+    //   url: 'https://gistdaportal.gistda.or.th/data/rest/services/L11_TopographicMap/L11_topographicmap/ImageServer',
+    //   opacity: 0.6
+    // })
 
     const pro = L.tileLayer.wms(cgiUrl, {
       layers: 'th:province_4326',
@@ -182,7 +186,7 @@ export class HomeComponent implements OnInit {
     // };
 
     this.layerControl = L.control.layers(baseMap).addTo(this.map);
-    this.layerControl.addOverlay(topo.addTo(this.map), 'แผนที่1:50000');
+    // this.layerControl.addOverlay(topo.addTo(this.map), 'แผนที่1:50000');
     this.layerControl.addOverlay(pro.addTo(this.map), 'ขอบเขตจังหวัด');
     this.layerControl.addOverlay(amp.addTo(this.map), 'ขอบเขตอำเภอ');
     this.layerControl.addOverlay(tam.addTo(this.map), 'ขอบเขตตำบล');
@@ -238,7 +242,7 @@ export class HomeComponent implements OnInit {
           return L.marker(latlon, {
             icon: blueIcon,
             iconName: 'strmSta'
-          });
+          } as ExtendedMarkerOptions);
         },
         onEachFeature: (feature: any, layer: any) => {
           // console.log(feature);
@@ -432,12 +436,12 @@ export class HomeComponent implements OnInit {
 
     if (rain > 90 && runoff > 350) {
       this.badge01 = this.iconRed;
-      lyr_red.name = 'lyr_red01';
+      (lyr_red as any).name = 'lyr_red01';
       this.layerControl.addOverlay(lyr_red.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530001');
       this.sendNotify();
     } else if (rain > 90 || runoff > 350) {
       this.badge01 = this.iconOrange;
-      lyr_orange.name = 'lyr_orange01';
+      (lyr_orange as any).name = 'lyr_orange01';
       this.layerControl.addOverlay(lyr_orange.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530001');
       this.sendNotify();
     } else {
@@ -472,12 +476,12 @@ export class HomeComponent implements OnInit {
 
     if (rain > 90 && runoff > 420) {
       this.badge02 = this.iconRed;
-      lyr_red.name = 'lyr_red02';
+      (lyr_red as any).name = 'lyr_red02';
       this.layerControl.addOverlay(lyr_red.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530002');
       this.sendNotify();
     } else if (rain > 90 || runoff > 420) {
       this.badge02 = this.iconOrange;
-      lyr_orange.name = 'lyr_orange02';
+      (lyr_orange as any).name = 'lyr_orange02';
       this.layerControl.addOverlay(lyr_orange.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530002');
       this.sendNotify();
     } else {
@@ -512,12 +516,12 @@ export class HomeComponent implements OnInit {
 
     if (rain > 90 && runoff > 150) {
       this.badge03 = this.iconRed;
-      lyr_red.name = 'lyr_red03';
+      (lyr_red as any).name = 'lyr_red03';
       this.layerControl.addOverlay(lyr_red.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530003');
       this.sendNotify();
     } else if (rain > 90 || runoff > 150) {
       this.badge03 = this.iconOrange;
-      lyr_orange.name = 'lyr_orange03';
+      (lyr_orange as any).name = 'lyr_orange03';
       this.layerControl.addOverlay(lyr_orange.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530003');
       this.sendNotify();
     } else {
@@ -553,12 +557,12 @@ export class HomeComponent implements OnInit {
 
     if (rain > 90 && runoff > 150) {
       this.badge04 = this.iconRed;
-      lyr_red.name = 'lyr_red04';
+      (lyr_red as any).name = 'lyr_red04';
       this.layerControl.addOverlay(lyr_red.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530004');
       this.sendNotify();
     } else if (rain > 90 || runoff > 150) {
       this.badge04 = this.iconOrange;
-      lyr_orange.name = 'lyr_orange04';
+      (lyr_orange as any).name = 'lyr_orange04';
       this.layerControl.addOverlay(lyr_orange.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530004');
       this.sendNotify();
     } else {
@@ -594,12 +598,12 @@ export class HomeComponent implements OnInit {
 
     if (rain > 90 && runoff > 300) {
       this.badge05 = this.iconRed;
-      lyr_red.name = 'lyr_red05';
+      (lyr_red as any).name = 'lyr_red05';
       this.layerControl.addOverlay(lyr_red.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530005');
       this.sendNotify();
     } else if (rain > 90 || runoff > 300) {
       this.badge05 = this.iconOrange;
-      lyr_orange.name = 'lyr_orange05';
+      (lyr_orange as any).name = 'lyr_orange05';
       this.layerControl.addOverlay(lyr_orange.addTo(this.map), 'พื้นที่เสี่ยงน้ำท่วม 530005');
       this.sendNotify();
     } else {
@@ -614,8 +618,6 @@ export class HomeComponent implements OnInit {
       console.log(res)
     })
   }
-
-
 }
 
 export class Station {

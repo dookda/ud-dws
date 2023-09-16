@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import * as esri from 'esri-leaflet';
+// import * as esri from 'esri-leaflet';
 import { ServiceService } from '../service.service';
 // import { AngularFirestore } from '@angular/fire/firestore';
 import { MarkerService } from '../marker.service';
@@ -102,10 +102,10 @@ export class HomeComponent implements OnInit {
     //   opacity: 0.8
     // });
 
-    const topo = esri.tiledMapLayer({
-      url: 'https://gistdaportal.gistda.or.th/data/rest/services/L11_TopographicMap/L11_topographicmap/ImageServer',
-      opacity: 0.6
-    })
+    // const topo = esri.tiledMapLayer({
+    //   url: 'https://gistdaportal.gistda.or.th/data/rest/services/L11_TopographicMap/L11_topographicmap/ImageServer',
+    //   opacity: 0.6
+    // })
 
     const pro = L.tileLayer.wms(cgiUrl, {
       layers: 'th:province_4326',
@@ -182,7 +182,7 @@ export class HomeComponent implements OnInit {
     // };
 
     this.layerControl = L.control.layers(baseMap).addTo(this.map);
-    this.layerControl.addOverlay(topo.addTo(this.map), 'แผนที่1:50000');
+    // this.layerControl.addOverlay(topo.addTo(this.map), 'แผนที่1:50000');
     this.layerControl.addOverlay(pro.addTo(this.map), 'ขอบเขตจังหวัด');
     this.layerControl.addOverlay(amp.addTo(this.map), 'ขอบเขตอำเภอ');
     this.layerControl.addOverlay(tam.addTo(this.map), 'ขอบเขตตำบล');

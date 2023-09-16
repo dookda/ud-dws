@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import * as L from 'leaflet';
-import * as esri from 'esri-leaflet';
+// import * as esri from 'esri-leaflet';
 import { ServiceService } from '../service.service';
 import { MarkerService } from '../marker.service';
 
@@ -50,15 +50,15 @@ export class DroughtComponent implements OnInit {
       subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
     });
 
-    const topo = esri.tiledMapLayer({
-      url: 'https://gistdaportal.gistda.or.th/data/rest/services/L11_TopographicMap/L11_topographicmap/ImageServer',
-      opacity: 0.6
-    })
+    // const topo = esri.tiledMapLayer({
+    //   url: 'https://gistdaportal.gistda.or.th/data/rest/services/L11_TopographicMap/L11_topographicmap/ImageServer',
+    //   opacity: 0.6
+    // })
 
-    const ortho = esri.tiledMapLayer({
-      url: 'http://eis.ldd.go.th/ArcGIS/rest/services/LDD_RASTER_WM_CACHE/MapServer',
-      opacity: 0.8
-    })
+    // const ortho = esri.tiledMapLayer({
+    //   url: 'http://eis.ldd.go.th/ArcGIS/rest/services/LDD_RASTER_WM_CACHE/MapServer',
+    //   opacity: 0.8
+    // })
 
     // const esri = L.esri.basemapLayer('Topographic');
 
@@ -352,9 +352,9 @@ export class DroughtComponent implements OnInit {
     };
 
     const overLay = {
-      'ภาพถ่ายทางอากาศ': ortho,
+      // 'ภาพถ่ายทางอากาศ': ortho,
       // 'ภาพถ่ายทางอากาศ': ud_ortho,
-      'แผนที่1:50000': topo,
+      // 'แผนที่1:50000': topo,
       'ขอบเขตจังหวัด': pro,
       'ขอบเขตอำเภอ': amp.addTo(this.map),
       'ขอบเขตตำบล': tam.addTo(this.map),
