@@ -7,7 +7,7 @@ import { AboutComponent } from './about/about.component';
 import { SatmeteoComponent } from './satmeteo/satmeteo.component';
 import { LandsliceComponent } from './landslice/landslice.component';
 import { DroughtComponent } from './drought/drought.component';
-
+import { ModelComponent } from './model/model.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'hotspot', component: HotspotComponent },
   { path: 'drought', component: DroughtComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'model', component: ModelComponent },
   { path: '**', component: HomeComponent }
 ];
 

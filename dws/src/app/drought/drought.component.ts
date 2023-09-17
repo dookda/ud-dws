@@ -68,7 +68,7 @@ export class DroughtComponent implements OnInit {
 
     // overlay map
     const mapUrl = 'http://map.nu.ac.th/geoserver-hgis/ows?';
-    const cgiUrl = 'http://www.cgi.uru.ac.th/geoserver/ows?';
+    const cgiUrl = 'http://202.29.52.232/geoserver/ows?';
     const w3Url = 'http://www3.cgistln.nu.ac.th/geoserver/gistdata/ows?';
     const firms = 'https://firms.modaps.eosdis.nasa.gov/wms?';
 
@@ -78,24 +78,24 @@ export class DroughtComponent implements OnInit {
       format: 'image/png',
       transparent: true,
       zIndex: 5,
-      // CQL_FILTER: 'pro_code=53'
-    });
+      CQL_FILTER: 'pro_code=53'
+    } as any);
 
     const amp = L.tileLayer.wms(cgiUrl, {
       layers: '	th:amphoe_4326',
       format: 'image/png',
       transparent: true,
       zIndex: 5,
-      // CQL_FILTER: 'pro_code=53'
-    });
+      CQL_FILTER: 'pro_code=53'
+    } as any);
 
     const tam = L.tileLayer.wms(cgiUrl, {
       layers: 'th:tambon_4326',
       format: 'image/png',
       transparent: true,
       zIndex: 5,
-      // CQL_FILTER: 'pro_code=53'
-    });
+      CQL_FILTER: 'pro_code=53'
+    } as any);
 
     const ud_ortho = L.tileLayer.wms('http://cgi.uru.ac.th/geoserver/gwc/service/wms?', {
       layers: 'utd:urban',

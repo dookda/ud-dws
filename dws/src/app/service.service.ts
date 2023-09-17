@@ -65,7 +65,7 @@ export class ServiceService {
   }
 
   getCheckpoint() {
-    const url = `http://cgi.uru.ac.th/geoserver/ud/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ud%3All_station_4326&outputFormat=application%2Fjson`;
+    const url = `http://202.29.52.232/geoserver/ud/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ud%3All_station_4326&outputFormat=application%2Fjson`;
     return new Promise((resolve: any, reject: any) => {
       this.http.get(url).subscribe((res: any) => {
         resolve(res);

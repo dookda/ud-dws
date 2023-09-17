@@ -16,6 +16,7 @@ import { ServiceService } from './service.service';
 import { LandsliceComponent } from './landslice/landslice.component';
 import { DatePipe } from '@angular/common';
 import { DroughtComponent } from './drought/drought.component';
+import { ModelComponent } from './model/model.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DroughtComponent } from './drought/drought.component';
     RainComponent,
     SatmeteoComponent,
     LandsliceComponent,
-    DroughtComponent
+    DroughtComponent,
+    ModelComponent
   ],
   imports: [
     BrowserModule,

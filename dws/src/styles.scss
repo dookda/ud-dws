@@ -1,19 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600&display=swap');
+@import url("https://unpkg.com/leaflet@1.9.4/dist/leaflet.css");
 
-@import url("https://fonts.googleapis.com/css?family=Kanit");
-@import url("https://unpkg.com/leaflet@1.5.1/dist/leaflet.css");
-
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: Kanit !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: 'Noto Sans Thai', sans-serif;
 }
 
 body {
-    font-family: "Tahoma",Helvetica,Arial,sans-serif;
-    font-size: 14px !important;
-    line-height: 1.72222;
+    font-family: 'Noto Sans Thai', sans-serif;
+    // font-size: 18px !important;
+    // line-height: 1.72222;
 }
 
 .bg-light {
-    background-color: #e9ecef!important;
+    background-color: #e9ecef !important;
 }
 
 .navbar-collapse {
@@ -23,7 +33,7 @@ body {
 }
 
 .navbar-nav {
-    font-family: Kanit !important;
+    font-family: 'Noto Sans Thai' !important;
     /* font-weight: 800; */
     font-size: 16px !important;
 }
@@ -45,7 +55,7 @@ body {
 }
 
 
-.tile{    
+.tile {
     padding: .75rem 1rem;
     // margin-bottom: 1rem;
     // margin-top: 1rem;
